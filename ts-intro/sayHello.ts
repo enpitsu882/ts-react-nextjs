@@ -63,4 +63,105 @@ const labels: Label = {
   topFeature2: 'トップページの機能2です'
 }
 
-// p.49まで
+// インターフェース
+interface Point2 {
+  x: number;
+  y: number;
+}
+interface Point2 {
+  z: number; // 後から付け足せる
+}
+function printPoint2(point: Point2) {
+  console.log(`x座標は${point.x}です`);
+  console.log(`y座標は${point.y}です`);
+  console.log(`z座標は${point.z}です`);
+}
+printPoint2({ x: 100, y: 100, z: 200 });
+
+// インターフェースの継承
+interface Colorful {
+  color: string;
+}
+interface Circle {
+  radius: number;
+}
+interface ColorfulCircle extends Colorful, Circle {}
+
+const cc: ColorfulCircle = {
+  color: '赤',
+  radius: 10
+}
+
+// クラス
+class Point3 {
+  x: number;
+  y: number;
+
+  constructor(x: number = 0, y: number = 0) {
+    this.x = x;
+    this.y = y;
+  }
+
+  moveX(n: number): void {
+    this.x += n;
+  }
+
+  moveY(n: number): void {
+    this.y += n;
+  }
+}
+const point = new Point3();
+point.moveX(10);
+console.log(`${point.x}, ${point.y}`);
+
+// クラスの継承
+class Point3D extends Point3 {
+  z: number;
+
+  constructor(x: number = 0, y: number = 0, z: number = 0) {
+    super(x, y);
+    this.z = z;
+  }
+
+  moveZ(n: number): void {
+    this.z += n;
+  }
+}
+const point3D = new Point3D();
+point3D.moveX(10);
+point3D.moveY(20);
+console.log(`${point3D.x}, ${point3D.y}, ${point3D.z}`);
+
+// implementsによる実装の強制
+interface IUser { // 頭のIはinterfaceであることを示す
+  name: string;
+  age: number;
+
+  sayHello: () => string;
+}
+class User implements IUser {
+  name: string;
+  age: number;
+
+  constructor() {
+    this.name = '';
+    this.age = 0;
+  }
+
+  sayHello(): string { // 実装しないとエラーとなる
+    return `こんにちは，私は${this.name}，${this.age}歳です．`
+  }
+}
+
+// アクセス修飾子
+class BasePoint3D {
+  public x: number = 0;
+  private y: number = 0;
+  protected z: number = 0;
+}
+const basePoint = new BasePoint3D();
+basePoint.x; // OK
+// basePoint.y; // error
+// basePoint.z; // error
+
+// p.53 まで
