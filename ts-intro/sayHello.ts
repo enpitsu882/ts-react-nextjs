@@ -164,4 +164,122 @@ basePoint.x; // OK
 // basePoint.y; // error
 // basePoint.z; // error
 
-// p.53 まで
+// Enum型
+enum Direction {
+  Up,
+  Down,
+  Left,
+  Right
+}
+let direction: Direction = Direction.Left;
+console.log(direction); // 2
+
+// Enum型（文字列列挙型）
+enum Direction2 {
+  Up = 'UP',
+  Down = 'DOWN',
+  Left = 'LEFT',
+  Right = 'RIGHT'
+}
+const value = 'DOWN';
+const enumValue = value as Direction2;
+if (enumValue === Direction2.Down) {
+  console.log('Down is selected');  
+}
+
+// ジェネリック型
+class Queue<T> {
+  private array: T[] = [];
+
+  push(item: T) {
+    this.array.push(item);
+  }
+
+  pop(): T | undefined {
+    return this.array.shift();
+  }
+}
+const queue = new Queue<number>(); // 外部からnumber型を指定
+queue.push(112);
+queue.push(111);
+// queue.push('hoge');
+console.log(queue.pop());
+console.log(queue.pop());
+console.log(queue.pop());
+
+// Union型（型エイリアスどうしを掛け合わせることもできる）
+type Identity = {
+  id: number | string;
+  name: string;
+}
+type Contact = {
+  name: string;
+  email: string;
+  phone: string;
+}
+type IdentityOrContact = Identity | Contact;
+
+const id: IdentityOrContact = {
+  id: '111',
+  name: 'Takuya'
+};
+const contact: IdentityOrContact = {
+  name: 'Takuya',
+  email: 'test@exsample.com',
+  phone: '012345678'
+};
+
+// Intersection型
+type Employee = Identity & Contact;
+const employee: Employee = { // 1つでも欠けるとエラーとなる
+  id: '111',
+  name: 'Takuya',
+  email: 'test@exsample.com',
+  phone: '012345678'
+};
+
+// リテラル型
+let postStatus: 'draft' | 'published' | 'deleted';
+postStatus = 'draft'; // OK
+// postStatus = 'drafts'; // error
+function compare(a: string, b: string): -1 | 0 | 1 {
+  return a === b ? 0 : (a > b ? 1 : -1);
+}
+
+// never型
+function error(message: string): never {
+  throw new Error(message);
+}
+function foo(x: string | number | number[]): boolean {
+  if (typeof x === 'string') {
+    return true;
+  } else if (typeof x === 'number') {
+    return false;
+  }
+  // neverを利用することで明示的に値が返らないことをコンパイラに伝えることができる
+  // neverを使用しないとコンパイルエラーになる
+  return error('Never happens');
+}
+
+// 将来的に定数が追加される可能性のあるenum型を定義
+enum PageType {
+  ViewProfile,
+  EditProfile,
+  ChangePassword
+}
+const getTitleText = (type: PageType) => {
+  switch (type) {
+    case PageType.ViewProfile:
+      return 'Setting';
+    case PageType.EditProfile:
+      return 'Edit Profile';
+    case PageType.ChangePassword:
+      return 'Change Password';
+    default:
+      // 決して起きないことをコンパイラに伝えるnever型に代入
+      const wrongType: never = type;
+      throw new Error(`${wrongType} is not in PageType`);
+  }
+}
+
+// p.59まで

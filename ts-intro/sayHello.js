@@ -130,4 +130,105 @@ var basePoint = new BasePoint3D();
 basePoint.x; // OK
 // basePoint.y; // error
 // basePoint.z; // error
-// p.53 まで
+// Enum型
+var Direction;
+(function (Direction) {
+    Direction[Direction["Up"] = 0] = "Up";
+    Direction[Direction["Down"] = 1] = "Down";
+    Direction[Direction["Left"] = 2] = "Left";
+    Direction[Direction["Right"] = 3] = "Right";
+})(Direction || (Direction = {}));
+var direction = Direction.Left;
+console.log(direction); // 2
+// Enum型（文字列列挙型）
+var Direction2;
+(function (Direction2) {
+    Direction2["Up"] = "UP";
+    Direction2["Down"] = "DOWN";
+    Direction2["Left"] = "LEFT";
+    Direction2["Right"] = "RIGHT";
+})(Direction2 || (Direction2 = {}));
+var value = 'DOWN';
+var enumValue = value;
+if (enumValue === Direction2.Down) {
+    console.log('Down is selected');
+}
+// ジェネリック型
+var Queue = /** @class */ (function () {
+    function Queue() {
+        this.array = [];
+    }
+    Queue.prototype.push = function (item) {
+        this.array.push(item);
+    };
+    Queue.prototype.pop = function () {
+        return this.array.shift();
+    };
+    return Queue;
+}());
+var queue = new Queue(); // 外部からnumber型を指定
+queue.push(112);
+queue.push(111);
+// queue.push('hoge');
+console.log(queue.pop());
+console.log(queue.pop());
+console.log(queue.pop());
+var id = {
+    id: '111',
+    name: 'Takuya'
+};
+var contact = {
+    name: 'Takuya',
+    email: 'test@exsample.com',
+    phone: '012345678'
+};
+var employee = {
+    id: '111',
+    name: 'Takuya',
+    email: 'test@exsample.com',
+    phone: '012345678'
+};
+// リテラル型
+var postStatus;
+postStatus = 'draft'; // OK
+// postStatus = 'drafts'; // error
+function compare(a, b) {
+    return a === b ? 0 : (a > b ? 1 : -1);
+}
+// never型
+function error(message) {
+    throw new Error(message);
+}
+function foo(x) {
+    if (typeof x === 'string') {
+        return true;
+    }
+    else if (typeof x === 'number') {
+        return false;
+    }
+    // neverを利用することで明示的に値が返らないことをコンパイラに伝えることができる
+    // neverを使用しないとコンパイルエラーになる
+    return error('Never happens');
+}
+// 将来的に定数が追加される可能性のあるenum型を定義
+var PageType;
+(function (PageType) {
+    PageType[PageType["ViewProfile"] = 0] = "ViewProfile";
+    PageType[PageType["EditProfile"] = 1] = "EditProfile";
+    PageType[PageType["ChangePassword"] = 2] = "ChangePassword";
+})(PageType || (PageType = {}));
+var getTitleText = function (type) {
+    switch (type) {
+        case PageType.ViewProfile:
+            return 'Setting';
+        case PageType.EditProfile:
+            return 'Edit Profile';
+        case PageType.ChangePassword:
+            return 'Change Password';
+        default:
+            // 決して起きないことをコンパイラに伝えるnever型に代入
+            var wrongType = type;
+            throw new Error("".concat(wrongType, " is not in PageType"));
+    }
+};
+// p.59まで
