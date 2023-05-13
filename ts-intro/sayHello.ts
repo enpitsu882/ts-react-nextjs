@@ -282,4 +282,112 @@ const getTitleText = (type: PageType) => {
   }
 }
 
-// p.59まで
+// Optional Chaining
+interface User2 {
+  name: string,
+  social?: {
+    facebook: boolean,
+    twitter: boolean
+  }
+}
+
+let user2: User2;
+
+user2 = { name: 'Takuya', social: { facebook: true, twitter: true } }
+console.log(user2.social?.facebook); // true
+
+user2 = { name: 'Takuya' }
+console.log(user2.social?.facebook); // undefined
+
+// Non-null Assertion Operator
+function processUser(user?: User) {
+  // let s = user.name; // オブジェクトは 'undefined' である可能性があります。
+  let s = user!.name;
+}
+
+// 型ガード
+function addOne(value: number | string) {
+  if (typeof value === 'string') {
+    return Number(value) + 1;
+  }
+  return value + 1;
+}
+console.log(10); // 11
+console.log('20'); // 21
+
+type User3 = {
+  info?: {
+    name: string;
+    age: number;
+  }
+}
+
+let response = {};
+const user3 = (response as any) as User3;
+
+if (user3.info) {
+  console.log(user3.info.name); // 既にifでinfoがあることは確定しているのでOK
+}
+
+// keyofオペレーター
+interface User4 {
+  name: string;
+  age: number;
+  email: string;
+}
+type UserKey = keyof User4 // 'name' | 'age' | 'email' のUnion型になる
+
+const key1: UserKey = 'name';
+// const key2: UserKey = 'phone'; // error
+
+function getProperty<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+const user4: User4 = {
+  name: 'Takuya',
+  age: 36,
+  email: 'test@example.com'
+}
+const userName = getProperty(user, 'name');
+// const userGender = getProperty(user, 'gender'); // error
+
+// インデックス型
+type SupportVersions = {
+  [env: number]: boolean;
+}
+
+let versions: SupportVersions = {
+  102: false,
+  103: false,
+  104: true,
+  // 'v105': true // error
+}
+
+// readonly
+type User5 = {
+  name: string;
+  gender: string;
+}
+type UserReadonly = Readonly<User5>; // ジェネリック型
+
+let user5: User5 = { name: 'Takuya', gender: 'Male' };
+let userReadonly: UserReadonly = { name: 'Takuya', gender: 'Male' };
+
+// unknown型
+const x: unknown = 123;
+const y: unknown = 'Hello';
+
+// console.log(x.toFixed(1)); // error
+if (typeof x === 'number') {
+  console.log(x.toFixed(1)); // 型安全な状況下のみでアクセス・実行できる
+}
+if (typeof y === 'string') {
+  console.log(y.toLowerCase());
+}
+
+// 型定義ファイルの作成
+import { hello } from './lib/hello'
+hello('Takuya');
+
+// p.65まで
