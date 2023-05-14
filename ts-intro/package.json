@@ -4,10 +4,12 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write"
+    "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
+    "lint": "eslint src"
   },
   "devDependencies": {
+    "prettier": "^2.8.8",
     "typescript": "^5.0.4",
-    "prettier": "^2.8.8"
+    "eslint": "^8.40.0"
   }
 }
