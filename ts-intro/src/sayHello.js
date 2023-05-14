@@ -1,16 +1,32 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = function (d, b) {
+        extendStatics = Object.setPrototypeOf ||
+            ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
+        return extendStatics(d, b);
+    };
+    return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var _a, _b;
+Object.defineProperty(exports, "__esModule", { value: true });
 function sayHello(firstName) {
     console.log('Hello ' + firstName);
 }
-let firstName = 'Takuya';
+var firstName = 'Takuya';
 sayHello(firstName);
 // 配列
-const mixedArray = ['foo', 1];
-const mixedArrayU = ['foo', 1]; // Union型
-const mixedArrayT = ['foo', 1]; // タプル
+var mixedArray = ['foo', 1];
+var mixedArrayU = ['foo', 1]; // Union型
+var mixedArrayT = ['foo', 1]; // タプル
 // オブジェクト型(プロパティに?を付けると省略可となる)
-const user = {
+var user = {
     name: 'Takuya',
     age: 36
 };
@@ -21,88 +37,100 @@ printName({ firstName: 'Takuya' });
 printName({ firstName: 'Takuya', lastName: 'Tejima' });
 // 関数
 function sayHello2(name) {
-    return `Hello ${name}`;
+    return "Hello ".concat(name);
 }
 // 引数に関数を指定
 function printName2(firstName, formatter) {
     console.log(formatter(firstName));
 }
 function formatName(name) {
-    return `${name} san`;
+    return "".concat(name, " san");
 }
 printName2('Takuya', formatName); // Takuya san
 function printPoint(point) {
-    console.log(`x座標は${point.x}です`);
-    console.log(`y座標は${point.y}です`);
+    console.log("x\u5EA7\u6A19\u306F".concat(point.x, "\u3067\u3059"));
+    console.log("y\u5EA7\u6A19\u306F".concat(point.y, "\u3067\u3059"));
 }
 printPoint({ x: 100, y: 100 });
 function printName3(firstName, formatter) {
     console.log(formatter(firstName));
 }
-const labels = {
+var labels = {
     topTitle: 'トップページのタイトルです',
     topSubTitle: 'トップページのサブタイトルです',
     topFeature1: 'トップページの機能1です',
     topFeature2: 'トップページの機能2です'
 };
 function printPoint2(point) {
-    console.log(`x座標は${point.x}です`);
-    console.log(`y座標は${point.y}です`);
-    console.log(`z座標は${point.z}です`);
+    console.log("x\u5EA7\u6A19\u306F".concat(point.x, "\u3067\u3059"));
+    console.log("y\u5EA7\u6A19\u306F".concat(point.y, "\u3067\u3059"));
+    console.log("z\u5EA7\u6A19\u306F".concat(point.z, "\u3067\u3059"));
 }
 printPoint2({ x: 100, y: 100, z: 200 });
-const cc = {
+var cc = {
     color: '赤',
     radius: 10
 };
 // クラス
-class Point3 {
-    constructor(x = 0, y = 0) {
+var Point3 = /** @class */ (function () {
+    function Point3(x, y) {
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
         this.x = x;
         this.y = y;
     }
-    moveX(n) {
+    Point3.prototype.moveX = function (n) {
         this.x += n;
-    }
-    moveY(n) {
+    };
+    Point3.prototype.moveY = function (n) {
         this.y += n;
-    }
-}
-const point = new Point3();
+    };
+    return Point3;
+}());
+var point = new Point3();
 point.moveX(10);
-console.log(`${point.x}, ${point.y}`);
+console.log("".concat(point.x, ", ").concat(point.y));
 // クラスの継承
-class Point3D extends Point3 {
-    constructor(x = 0, y = 0, z = 0) {
-        super(x, y);
-        this.z = z;
+var Point3D = /** @class */ (function (_super) {
+    __extends(Point3D, _super);
+    function Point3D(x, y, z) {
+        if (x === void 0) { x = 0; }
+        if (y === void 0) { y = 0; }
+        if (z === void 0) { z = 0; }
+        var _this = _super.call(this, x, y) || this;
+        _this.z = z;
+        return _this;
     }
-    moveZ(n) {
+    Point3D.prototype.moveZ = function (n) {
         this.z += n;
-    }
-}
-const point3D = new Point3D();
+    };
+    return Point3D;
+}(Point3));
+var point3D = new Point3D();
 point3D.moveX(10);
 point3D.moveY(20);
-console.log(`${point3D.x}, ${point3D.y}, ${point3D.z}`);
-class User {
-    constructor() {
+console.log("".concat(point3D.x, ", ").concat(point3D.y, ", ").concat(point3D.z));
+var User = /** @class */ (function () {
+    function User() {
         this.name = '';
         this.age = 0;
     }
-    sayHello() {
-        return `こんにちは，私は${this.name}，${this.age}歳です．`;
-    }
-}
+    User.prototype.sayHello = function () {
+        // 実装しないとエラーとなる
+        return "\u3053\u3093\u306B\u3061\u306F\uFF0C\u79C1\u306F".concat(this.name, "\uFF0C").concat(this.age, "\u6B73\u3067\u3059\uFF0E");
+    };
+    return User;
+}());
 // アクセス修飾子
-class BasePoint3D {
-    constructor() {
+var BasePoint3D = /** @class */ (function () {
+    function BasePoint3D() {
         this.x = 0;
         this.y = 0;
         this.z = 0;
     }
-}
-const basePoint = new BasePoint3D();
+    return BasePoint3D;
+}());
+var basePoint = new BasePoint3D();
 basePoint.x; // OK
 // basePoint.y; // error
 // basePoint.z; // error
@@ -114,7 +142,7 @@ var Direction;
     Direction[Direction["Left"] = 2] = "Left";
     Direction[Direction["Right"] = 3] = "Right";
 })(Direction || (Direction = {}));
-let direction = Direction.Left;
+var direction = Direction.Left;
 console.log(direction); // 2
 // Enum型（文字列列挙型）
 var Direction2;
@@ -124,51 +152,53 @@ var Direction2;
     Direction2["Left"] = "LEFT";
     Direction2["Right"] = "RIGHT";
 })(Direction2 || (Direction2 = {}));
-const value = 'DOWN';
-const enumValue = value;
+var value = 'DOWN';
+var enumValue = value;
 if (enumValue === Direction2.Down) {
     console.log('Down is selected');
 }
 // ジェネリック型
-class Queue {
-    constructor() {
+var Queue = /** @class */ (function () {
+    function Queue() {
         this.array = [];
     }
-    push(item) {
+    Queue.prototype.push = function (item) {
         this.array.push(item);
-    }
-    pop() {
+    };
+    Queue.prototype.pop = function () {
         return this.array.shift();
-    }
-}
-const queue = new Queue(); // 外部からnumber型を指定
+    };
+    return Queue;
+}());
+var queue = new Queue(); // 外部からnumber型を指定
 queue.push(112);
 queue.push(111);
 // queue.push('hoge');
 console.log(queue.pop());
 console.log(queue.pop());
 console.log(queue.pop());
-const id = {
+var id = {
     id: '111',
     name: 'Takuya'
 };
-const contact = {
+var contact = {
     name: 'Takuya',
     email: 'test@exsample.com',
     phone: '012345678'
 };
-const employee = {
+var employee = {
+    // 1つでも欠けるとエラーとなる
     id: '111',
     name: 'Takuya',
     email: 'test@exsample.com',
     phone: '012345678'
 };
 // リテラル型
-let postStatus;
+var postStatus;
 postStatus = 'draft'; // OK
 // postStatus = 'drafts'; // error
 function compare(a, b) {
-    return a === b ? 0 : (a > b ? 1 : -1);
+    return a === b ? 0 : a > b ? 1 : -1;
 }
 // never型
 function error(message) {
@@ -192,7 +222,7 @@ var PageType;
     PageType[PageType["EditProfile"] = 1] = "EditProfile";
     PageType[PageType["ChangePassword"] = 2] = "ChangePassword";
 })(PageType || (PageType = {}));
-const getTitleText = (type) => {
+var getTitleText = function (type) {
     switch (type) {
         case PageType.ViewProfile:
             return 'Setting';
@@ -202,12 +232,65 @@ const getTitleText = (type) => {
             return 'Change Password';
         default:
             // 決して起きないことをコンパイラに伝えるnever型に代入
-            const wrongType = type;
-            throw new Error(`${wrongType} is not in PageType`);
+            var wrongType = type;
+            throw new Error("".concat(wrongType, " is not in PageType"));
     }
 };
-let user2;
+var user2;
 user2 = { name: 'Takuya', social: { facebook: true, twitter: true } };
-console.log((_a = user2.social) === null || _a === void 0 ? void 0 : _a.facebook);
+console.log((_a = user2.social) === null || _a === void 0 ? void 0 : _a.facebook); // true
 user2 = { name: 'Takuya' };
-console.log((_b = user2.social) === null || _b === void 0 ? void 0 : _b.facebook);
+console.log((_b = user2.social) === null || _b === void 0 ? void 0 : _b.facebook); // undefined
+// Non-null Assertion Operator
+function processUser(user) {
+    // let s = user.name; // オブジェクトは 'undefined' である可能性があります。
+    var s = user.name;
+}
+// 型ガード
+function addOne(value) {
+    if (typeof value === 'string') {
+        return Number(value) + 1;
+    }
+    return value + 1;
+}
+console.log(10); // 11
+console.log('20'); // 21
+var response = {};
+var user3 = response;
+if (user3.info) {
+    console.log(user3.info.name); // 既にifでinfoがあることは確定しているのでOK
+}
+var key1 = 'name';
+// const key2: UserKey = 'phone'; // error
+function getProperty(obj, key) {
+    return obj[key];
+}
+var user4 = {
+    name: 'Takuya',
+    age: 36,
+    email: 'test@example.com'
+};
+var userName = getProperty(user, 'name');
+var versions = {
+    102: false,
+    103: false,
+    104: true
+    // 'v105': true // error
+};
+var user5 = { name: 'Takuya', gender: 'Male' };
+var userReadonly = { name: 'Takuya', gender: 'Male' };
+// unknown型
+var x = 123;
+var y = 'Hello';
+// console.log(x.toFixed(1)); // error
+if (typeof x === 'number') {
+    console.log(x.toFixed(1)); // 型安全な状況下のみでアクセス・実行できる
+}
+if (typeof y === 'string') {
+    console.log(y.toLowerCase());
+}
+// 型定義ファイルの作成
+var hello_1 = require("./lib/hello");
+(0, hello_1.hello)('Takuya');
+// p.65まで
+console.log("tsconfig test");
