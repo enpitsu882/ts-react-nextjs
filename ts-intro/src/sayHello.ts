@@ -1,4 +1,4 @@
-function sayHello (firstName: string) {
+function sayHello(firstName: string) {
   console.log('Hello ' + firstName);
 }
 
@@ -7,7 +7,7 @@ sayHello(firstName);
 
 // 配列
 const mixedArray = ['foo', 1];
-const mixedArrayU: (string|number)[] = ['foo', 1]; // Union型
+const mixedArrayU: (string | number)[] = ['foo', 1]; // Union型
 const mixedArrayT: [string, number] = ['foo', 1]; // タプル
 
 // オブジェクト型(プロパティに?を付けると省略可となる)
@@ -16,14 +16,14 @@ const user: { name: string; age: number } = {
   age: 36
 };
 function printName(obj: { firstName: string; lastName?: string }) {
-  console.log(obj);  
+  console.log(obj);
 }
 printName({ firstName: 'Takuya' });
 printName({ firstName: 'Takuya', lastName: 'Tejima' });
 
 // 関数
 function sayHello2(name: string): string {
-  return `Hello ${name}`
+  return `Hello ${name}`;
 }
 
 // 引数に関数を指定
@@ -33,13 +33,13 @@ function printName2(firstName: string, formatter: (name: string) => string) {
 function formatName(name: string): string {
   return `${name} san`;
 }
-printName2('Takuya', formatName) // Takuya san
+printName2('Takuya', formatName); // Takuya san
 
 // 型エイリアス
 type Point = {
   x: number;
   y: number;
-}
+};
 function printPoint(point: Point) {
   console.log(`x座標は${point.x}です`);
   console.log(`y座標は${point.y}です`);
@@ -55,13 +55,13 @@ function printName3(firstName: string, formatter: Formatter) {
 // 型エイリアス（オブジェクト）
 type Label = {
   [key: string]: string;
-}
+};
 const labels: Label = {
   topTitle: 'トップページのタイトルです',
   topSubTitle: 'トップページのサブタイトルです',
   topFeature1: 'トップページの機能1です',
   topFeature2: 'トップページの機能2です'
-}
+};
 
 // インターフェース
 interface Point2 {
@@ -90,7 +90,7 @@ interface ColorfulCircle extends Colorful, Circle {}
 const cc: ColorfulCircle = {
   color: '赤',
   radius: 10
-}
+};
 
 // クラス
 class Point3 {
@@ -133,7 +133,8 @@ point3D.moveY(20);
 console.log(`${point3D.x}, ${point3D.y}, ${point3D.z}`);
 
 // implementsによる実装の強制
-interface IUser { // 頭のIはinterfaceであることを示す
+interface IUser {
+  // 頭のIはinterfaceであることを示す
   name: string;
   age: number;
 
@@ -148,8 +149,9 @@ class User implements IUser {
     this.age = 0;
   }
 
-  sayHello(): string { // 実装しないとエラーとなる
-    return `こんにちは，私は${this.name}，${this.age}歳です．`
+  sayHello(): string {
+    // 実装しないとエラーとなる
+    return `こんにちは，私は${this.name}，${this.age}歳です．`;
   }
 }
 
@@ -184,7 +186,7 @@ enum Direction2 {
 const value = 'DOWN';
 const enumValue = value as Direction2;
 if (enumValue === Direction2.Down) {
-  console.log('Down is selected');  
+  console.log('Down is selected');
 }
 
 // ジェネリック型
@@ -211,12 +213,12 @@ console.log(queue.pop());
 type Identity = {
   id: number | string;
   name: string;
-}
+};
 type Contact = {
   name: string;
   email: string;
   phone: string;
-}
+};
 type IdentityOrContact = Identity | Contact;
 
 const id: IdentityOrContact = {
@@ -231,7 +233,8 @@ const contact: IdentityOrContact = {
 
 // Intersection型
 type Employee = Identity & Contact;
-const employee: Employee = { // 1つでも欠けるとエラーとなる
+const employee: Employee = {
+  // 1つでも欠けるとエラーとなる
   id: '111',
   name: 'Takuya',
   email: 'test@exsample.com',
@@ -243,7 +246,7 @@ let postStatus: 'draft' | 'published' | 'deleted';
 postStatus = 'draft'; // OK
 // postStatus = 'drafts'; // error
 function compare(a: string, b: string): -1 | 0 | 1 {
-  return a === b ? 0 : (a > b ? 1 : -1);
+  return a === b ? 0 : a > b ? 1 : -1;
 }
 
 // never型
@@ -280,23 +283,23 @@ const getTitleText = (type: PageType) => {
       const wrongType: never = type;
       throw new Error(`${wrongType} is not in PageType`);
   }
-}
+};
 
 // Optional Chaining
 interface User2 {
-  name: string,
+  name: string;
   social?: {
-    facebook: boolean,
-    twitter: boolean
-  }
+    facebook: boolean;
+    twitter: boolean;
+  };
 }
 
 let user2: User2;
 
-user2 = { name: 'Takuya', social: { facebook: true, twitter: true } }
+user2 = { name: 'Takuya', social: { facebook: true, twitter: true } };
 console.log(user2.social?.facebook); // true
 
-user2 = { name: 'Takuya' }
+user2 = { name: 'Takuya' };
 console.log(user2.social?.facebook); // undefined
 
 // Non-null Assertion Operator
@@ -319,11 +322,11 @@ type User3 = {
   info?: {
     name: string;
     age: number;
-  }
-}
+  };
+};
 
 let response = {};
-const user3 = (response as any) as User3;
+const user3 = response as any as User3;
 
 if (user3.info) {
   console.log(user3.info.name); // 既にifでinfoがあることは確定しているのでOK
@@ -335,7 +338,7 @@ interface User4 {
   age: number;
   email: string;
 }
-type UserKey = keyof User4 // 'name' | 'age' | 'email' のUnion型になる
+type UserKey = keyof User4; // 'name' | 'age' | 'email' のUnion型になる
 
 const key1: UserKey = 'name';
 // const key2: UserKey = 'phone'; // error
@@ -348,27 +351,27 @@ const user4: User4 = {
   name: 'Takuya',
   age: 36,
   email: 'test@example.com'
-}
+};
 const userName = getProperty(user, 'name');
 // const userGender = getProperty(user, 'gender'); // error
 
 // インデックス型
 type SupportVersions = {
   [env: number]: boolean;
-}
+};
 
 let versions: SupportVersions = {
   102: false,
   103: false,
-  104: true,
+  104: true
   // 'v105': true // error
-}
+};
 
 // readonly
 type User5 = {
   name: string;
   gender: string;
-}
+};
 type UserReadonly = Readonly<User5>; // ジェネリック型
 
 let user5: User5 = { name: 'Takuya', gender: 'Male' };
@@ -387,7 +390,7 @@ if (typeof y === 'string') {
 }
 
 // 型定義ファイルの作成
-import { hello } from './lib/hello'
+import { hello } from './lib/hello';
 hello('Takuya');
 
 // p.65まで
