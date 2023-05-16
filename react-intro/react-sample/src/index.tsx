@@ -6,14 +6,15 @@ import reportWebVitals from './reportWebVitals';
 // import Hello from './components/Hello';
 // import Name from './components/Name';
 // import Parent from './components/ContainerSamples';
-import Page from './components/ContextSamples';
+// import Page from './components/ContextSamples';
+import Counter from './components/Counter';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <Page />
+    <Counter initialValue={1} />
   </React.StrictMode>
 );
 
