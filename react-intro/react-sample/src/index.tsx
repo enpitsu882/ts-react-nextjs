@@ -7,15 +7,14 @@ import reportWebVitals from './reportWebVitals';
 // import Name from './components/Name';
 // import Parent from './components/ContainerSamples';
 // import Page from './components/ContextSamples';
-import Counter from './components/Counter';
+// import Counter from './components/Counter';
+import { Parent } from './components/Parent';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <Counter initialValue={1} />
-  </React.StrictMode>
+  <Parent />
 );
 
 // If you want to start measuring performance in your app, pass a function
