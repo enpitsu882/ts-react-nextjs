@@ -3,11 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
-// import Hello from './components/Hello';
-// import Name from './components/Name';
-// import Parent from './components/ContainerSamples';
-// import Page from './components/ContextSamples';
-// import Counter from './components/Counter';
+
+// 練習用に追加したもの
 import { Parent } from './components/Parent';
 
 const root = ReactDOM.createRoot(
