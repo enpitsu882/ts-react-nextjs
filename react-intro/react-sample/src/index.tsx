@@ -5,13 +5,13 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 // 練習用に追加したもの
-import { UseMemoSample } from './components/UseMemoSample';
+import { Clock } from './components/Clock';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <UseMemoSample />
+  <Clock />
 );
 
 // If you want to start measuring performance in your app, pass a function
